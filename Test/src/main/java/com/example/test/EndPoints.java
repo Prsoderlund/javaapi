@@ -12,40 +12,38 @@ import org.springframework.web.bind.annotation.RestController;
 public class B2FController {
 
     @Autowired
-    private JavaBackEndService javaBackEndService; // Inject your JavaBackEnd service
+    private JavaBackEndService javaBackEndService; // Inject JavaBackEnd-tjänst
 
     @GetMapping("/fetchProcessedData")
     public ResponseEntity<Object> fetchProcessedDataFromDB() {
         try {
-            // Call the JavaBackEnd service method to fetch processed data from DBMS
+            // Anropa metoden i JavaBackEnd-tjänsten för att hämta bearbetad data från DBMS
             ProcessedData processedData = javaBackEndService.fetchProcessedDataFromDB();
-            // Convert data to a Frontend-friendly format if needed
+            // Konvertera data till ett format som är användarvänligt för frontend om det behövs
             FrontendData frontendData = convertToFrontendFormat(processedData);
-            // Return the data as a JSON response
+            // Returnera data som ett JSON-svar
             return ResponseEntity.ok(frontendData);
         } catch (Exception e) {
-            // Handle any errors and return appropriate error messages
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching processed data from DBMS.");
+            // Hantera eventuella fel här
         }
     }
 
     @GetMapping("/fetchRawData")
     public ResponseEntity<Object> fetchRawDataFromDB() {
         try {
-            // Call the JavaBackEnd service method to fetch raw temperature data from DBMS
+            // Anropa metoden i JavaBackEnd-tjänsten för att hämta rå temperaturdata från DBMS
             RawData rawData = javaBackEndService.fetchRawDataFromDB();
-            // Return the raw data as a JSON response
+            // Returnera rådata som ett JSON-svar
             return ResponseEntity.ok(rawData);
         } catch (Exception e) {
-            // Handle any errors and return appropriate error messages
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching raw temperature data from DBMS.");
+            // Hantera eventuella fel här
         }
     }
 
-    // Helper method to convert data to Frontend-friendly format if needed
+    // Hjälpmetod för att konvertera data till ett användarvänligt format för frontend om det behövs
     private FrontendData convertToFrontendFormat(ProcessedData processedData) {
-        // Implement your data conversion logic here
-        // For example, create a new FrontendData object with the desired structure and data
+        // Implementera din logik för datakonvertering här
+        // Till exempel, skapa en ny FrontendData-objekt med önskad struktur och data
         FrontendData frontendData = new FrontendData();
         frontendData.setData1(processedData.getSomeValue1());
         frontendData.setData2(processedData.getSomeValue2());
