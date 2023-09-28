@@ -9,12 +9,12 @@ public class TemperatureData {
     private String category;
     private Double temperature;
 
-    // Getters and setters
+    // Getters och setters 
 }
 
 @Repository
 public interface TemperatureDataRepository extends JpaRepository<TemperatureData, Long> {
-    List<TemperatureData> findByCategory(String category);
+    List<TemperatureData> findByCategory(String category); // Hitta temperaturdata efter kategori
 }
 
 @Service
@@ -23,11 +23,11 @@ public class TemperatureDataService {
     private TemperatureDataRepository temperatureDataRepository;
 
     public List<TemperatureData> fetchDataByCategory(String category) {
-        return temperatureDataRepository.findByCategory(category);
+        return temperatureDataRepository.findByCategory(category); // Hämta data efter kategori
     }
 
     public List<TemperatureData> fetchRawData() {
-        return temperatureDataRepository.findAll();
+        return temperatureDataRepository.findAll(); // Hämta rådata
     }
 }
 
@@ -39,13 +39,13 @@ public class DBMSController {
 
     @GetMapping("/fetchData")
     public ResponseEntity<List<TemperatureData>> fetchData(@RequestParam("category") String category) {
-        List<TemperatureData> data = temperatureDataService.fetchDataByCategory(category);
+        List<TemperatureData> data = temperatureDataService.fetchDataByCategory(category); // Hämta data efter kategori
         return ResponseEntity.ok(data);
     }
 
     @GetMapping("/fetchRawData")
     public ResponseEntity<List<TemperatureData>> fetchRawData() {
-        List<TemperatureData> rawData = temperatureDataService.fetchRawData();
+        List<TemperatureData> rawData = temperatureDataService.fetchRawData(); // Hämta rådata
         return ResponseEntity.ok(rawData);
     }
 }
